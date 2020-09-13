@@ -1,0 +1,25 @@
+* {
+	&,
+	&:before,
+	&:after {
+		box-sizing: border-box;
+	}
+}
+
+svg {
+	flex-shrink: 0;
+	fill: currentColor;
+}
+
+.page-section {
+	padding: 64px 16px;
+
+	&__wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	@media (max-width: 991px) {
+		padding: 40px 0;
+	}
+}
