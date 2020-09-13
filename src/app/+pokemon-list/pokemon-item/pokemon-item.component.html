@@ -1,0 +1,25 @@
+<a
+	[routerLink]="['/pokemon', pokemonID]"
+	class="wrapper">
+	<img
+		*ngIf="pokemonData"
+		[src]="pokemonData.sprites.other?.dream_world?.front_default || pokemonData.sprites.front_default"
+		alt=""
+		class="sprite" />
+
+	<p class="name">{{ pokemonData ? pokemonData.name : pokemonPreview?.name }}</p>
+
+	<ul class="types" *ngIf="pokemonData">
+		<li
+			*ngFor="let type of pokemonData.types"
+			class="types__item">
+
+			<img
+				[src]="'/assets/img/types/' + type.type.name + '.svg'"
+				[alt]="type.type.name"
+				class="types__item-icon"
+				[matTooltip]="type.type.name | titlecase"
+				matTooltipPosition="above" />
+		</li>
+	</ul>
+</a>

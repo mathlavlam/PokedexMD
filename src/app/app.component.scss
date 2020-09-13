@@ -1,0 +1,25 @@
+@import 'variables';
+
+:host {
+	display: block;
+}
+
+.toolbar {
+	color: #FFF;
+
+	&__title-container {
+		display: flex;
+		align-items: center;
+	}
+
+	&__title-icon {
+		display: inline-block;
+		width: 32px;
+		height: 32px;
+	}
+
+	&__title {
+		font: 700 22px/1.4 $f-primary;
+		margin: 0 0 0 8px;
+	}
+}
