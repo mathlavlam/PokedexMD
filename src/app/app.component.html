@@ -1,10 +1,10 @@
 <mat-toolbar
 	class="toolbar"
 	color="primary">
-	<div class="toolbar__title-container">
+	<a [routerLink]="['/pokemons']" class="toolbar__title-container">
 		<img src="/assets/img/pokeball.png" alt="" class="toolbar__title-icon">
 		<p class="toolbar__title">PokedexMD</p>
-	</div>
+	</a>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

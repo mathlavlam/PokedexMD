@@ -13,11 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$pkdx-primary: mat-palette($pkdx-primary);
-$pkdx-accent: mat-palette($pkdx-accent);
 
-// The warn palette is optional (defaults to red).
-$pkdx-warn: mat-palette($pkdx-warn);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

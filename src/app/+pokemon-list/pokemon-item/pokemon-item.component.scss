@@ -4,6 +4,7 @@
 	position: relative;
 	display: block;
 	box-shadow: 0 4px 8px rgba(#000, 0.2);
+	border-radius: 16px;
 	transition: box-shadow 0.25s cubic-bezier(.55, 0, .1, 1);
 
 	&:hover,
@@ -17,6 +18,13 @@
 		width: 100%;
 		padding-top: 100%;
 	}
+}
+
+.spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -16px 0 0 -16px;
 }
 
 .wrapper {
@@ -40,21 +48,4 @@
 	margin-top: auto;
 	font: 700 18px/22px $f-primary;
 	text-transform: capitalize;
-}
-
-.types {
-	display: flex;
-	margin: -4px;
-
-	&__item {
-		display: flex;
-		align-items: center;
-		padding: 4px;
-
-		&-icon {
-			cursor: help;
-			width: 24px;
-			height: 24px;
-		}
-	}
 }

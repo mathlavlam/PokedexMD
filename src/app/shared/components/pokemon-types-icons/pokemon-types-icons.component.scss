@@ -1,0 +1,16 @@
+.types {
+	display: flex;
+	margin: -4px;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		padding: 4px;
+
+		&-icon {
+			cursor: help;
+			width: 24px;
+			height: 24px;
+		}
+	}
+}

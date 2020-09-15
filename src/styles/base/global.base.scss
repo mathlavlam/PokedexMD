@@ -11,8 +11,20 @@ svg {
 	fill: currentColor;
 }
 
+img	{
+	max-width: 100%;
+}
+
 .page-section {
 	padding: 64px 16px;
+
+	&--no-top-pad {
+		padding-top: 0;
+	}
+
+	&--no-btm-pad {
+		padding-bottom: 0;
+	}
 
 	&__wrapper {
 		max-width: 1200px;

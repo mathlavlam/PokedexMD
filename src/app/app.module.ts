@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PokedexAPIService } from './core/services/pokedex-api/pokedex-api.service';
+import { PokeAPIService } from './core/services/pokeapi/pokeapi.service';
+import { environment } from '../environments/environment';
 
 @NgModule({
 	declarations: [
@@ -17,10 +19,11 @@ import { PokedexAPIService } from './core/services/pokedex-api/pokedex-api.servi
 		HttpClientModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
-		MatToolbarModule
+		MatToolbarModule,
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],
 	providers: [
-		PokedexAPIService
+		PokeAPIService
 	],
 	bootstrap: [AppComponent]
 })

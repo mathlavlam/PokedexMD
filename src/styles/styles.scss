@@ -1,9 +1,9 @@
 @import '~bootstrap/scss/bootstrap-grid.scss';
 
 @import './mat-theming/palettes.scss';
+@import './variables';
 @import './mat-theming/theme.scss';
 @import './mat-theming/custom/custom';
 
-@import './variables';
 @import './fonts/fonts';
 @import './base/base';

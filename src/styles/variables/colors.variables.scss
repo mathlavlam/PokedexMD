@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@import '../mat-theming/palettes.scss';
+
+$pkdx-primary: mat-palette($pkdx-primary);
+$pkdx-accent: mat-palette($pkdx-accent);
+$pkdx-warn: mat-palette($pkdx-warn);
+
+$c-primary: mat-color($pkdx-primary);
+$c-accent: mat-color($pkdx-accent);

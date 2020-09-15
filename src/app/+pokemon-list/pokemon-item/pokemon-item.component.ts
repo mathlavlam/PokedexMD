@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon, NamedAPIResource } from 'pokeapi';
-import { PokedexAPIService } from 'src/app/core/services/pokedex-api/pokedex-api.service';
+import { PokeAPIService } from 'src/app/core/services/pokeapi/pokeapi.service';
 
 @Component({
 	selector: 'pokemon-item',
@@ -9,6 +9,8 @@ import { PokedexAPIService } from 'src/app/core/services/pokedex-api/pokedex-api
 })
 export class PokemonItemComponent implements OnInit {
 	//#region Template bound properties
+	public isLoading: boolean = true;
+
 	public pokemonData: Pokemon;
 
 	public pokemonID: number;
@@ -20,7 +22,7 @@ export class PokemonItemComponent implements OnInit {
 	//#endregion
 
 	//#region Lifecycles
-	constructor(private pokedexAPI: PokedexAPIService) { }
+	constructor(private pokedexAPI: PokeAPIService) { }
 
 	ngOnInit(): void {
 		this.setPokemonID();
@@ -41,7 +43,14 @@ export class PokemonItemComponent implements OnInit {
 	}
 
 	private async fetchPokemonData(): Promise<void> {
-		this.pokemonData = await this.pokedexAPI.getPokemonData(this.pokemonID);
+		this.isLoading = true;
+
+		try {
+			this.pokemonData = await this.pokedexAPI.get(`pokemon/${ this.pokemonID }/`);
+			this.isLoading = false;
+		} catch (e) {
+			console.error(e);
+		}
 	}
 	//#endregion
 }

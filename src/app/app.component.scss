@@ -10,6 +10,11 @@
 	&__title-container {
 		display: flex;
 		align-items: center;
+
+		&:hover,
+		&:focus {
+			color: #FFF;
+		}
 	}
 
 	&__title-icon {

@@ -1,46 +1,26 @@
 <div class="page-section">
 	<div class="page-section__wrapper">
-		<!-- <div class="form-container">
-			<form
-				novalidate
-				[formGroup]="searchForm"
-				(submit)="onSearchFormSubmit()">
+		<div class="results-container">
+			<ul class="results row" [ngClass]="{'results--loading': isLoading}">
+				<li class="results__item col-md-3" *ngFor="let pokemon of results">
+					<pokemon-item [pokemon]="pokemon"></pokemon-item>
+				</li>
+			</ul>
 
-				<div class="row">
-					<div class="col-md-10">
-						<mat-form-field appearance="outline" color="primary">
-							<mat-label>Type</mat-label>
-
-							<mat-select formControlName="type">
-								<mat-option>Tous</mat-option>
-
-								<mat-option
-									*ngFor="let pokemonType of pokemonTypes"
-									[value]="getPokemonTypeID(pokemonType.url)">
-									{{ pokemonType.name }}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-
-					<div class="col-md-2">
-						<button type="submit">
-							Go !
-						</button>
-					</div>
-				</div>
-			</form>
-		</div> -->
-
-		<ul class="results row">
-			<li class="results__item col-md-3" *ngFor="let pokemon of results">
-				<pokemon-item [pokemon]="pokemon"></pokemon-item>
-			</li>
-		</ul>
+			<div class="results__loading-section" *ngIf="isLoading">
+				<mat-progress-spinner
+					class="results__loading-spinner"
+					mode="indeterminate"
+					diameter="64"
+					color="primary">
+				</mat-progress-spinner>
+			</div>
+		</div>
 
 		<mat-paginator
 			[length]="totalCount"
-			[pageSize]="20"
+			[pageSize]="pageSize"
+			[pageSizeOptions]="[8, 12, 16]"
 			[pageIndex]="page"
 			(page)="onPageChange($event)">
 		</mat-paginator>

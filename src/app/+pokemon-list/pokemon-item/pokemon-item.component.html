@@ -2,24 +2,23 @@
 	[routerLink]="['/pokemon', pokemonID]"
 	class="wrapper">
 	<img
-		*ngIf="pokemonData"
+		*ngIf="pokemonData && !isLoading"
 		[src]="pokemonData.sprites.other?.dream_world?.front_default || pokemonData.sprites.front_default"
 		alt=""
 		class="sprite" />
 
 	<p class="name">{{ pokemonData ? pokemonData.name : pokemonPreview?.name }}</p>
 
-	<ul class="types" *ngIf="pokemonData">
-		<li
-			*ngFor="let type of pokemonData.types"
-			class="types__item">
+	<pokemon-types-icons
+		*ngIf="pokemonData && !isLoading"
+		[pokemon]="pokemonData">
+	</pokemon-types-icons>
 
-			<img
-				[src]="'/assets/img/types/' + type.type.name + '.svg'"
-				[alt]="type.type.name"
-				class="types__item-icon"
-				[matTooltip]="type.type.name | titlecase"
-				matTooltipPosition="above" />
-		</li>
-	</ul>
+	<mat-progress-spinner
+		*ngIf="isLoading && !pokemonData"
+		class="spinner"
+		mode="indeterminate"
+		diameter="32"
+		color="primary">
+	</mat-progress-spinner>
 </a>

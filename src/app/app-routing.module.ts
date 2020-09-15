@@ -7,7 +7,7 @@ const routes: Routes = [
 		path: 'pokemons',
 		loadChildren: () => import('./+pokemon-list/pokemon-list.module').then(mod => mod.PokemonListModule)
 	}, {
-		path: 'pokemon/:pokemonID',
+		path: 'pokemon/:id',
 		loadChildren: () => import('./+pokemon-single/pokemon-single.module').then(mod => mod.PokemonSingleModule)
 	},
 
@@ -20,7 +20,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes, {
+		useHash: true,
+		onSameUrlNavigation: 'reload'
+	})],
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }

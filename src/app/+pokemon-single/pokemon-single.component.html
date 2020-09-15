@@ -1,1 +1,96 @@
-<p>pokemon-single works!</p>
+<div class="page-section" *ngIf="!isLoading; else loadingSectionTmpl">
+	<div class="page-section__wrapper">
+		<a [routerLink]="['/pokemons']" class="back-button">
+			<svg class="back-button__icon">
+				<use xlink:href="#ic-left"></use>
+			</svg>
+			Back to list
+		</a>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="pokemon-image-wrapper">
+					<img
+						[src]="pokemon?.sprites.other?.dream_world?.front_default || pokemon?.sprites.front_default"
+						alt=""
+						class="pokemon-image" />
+				</div>
+			</div>
+
+			<div class="description-container col-md-8">
+				<div class="title-container">
+					<h1 class="title">#{{ pokemon?.id }} - {{ pokemon?.name }}</h1>
+
+					<pokemon-types-icons
+						[pokemon]="pokemon"
+						tooltipPosition="below">
+					</pokemon-types-icons>
+				</div>
+
+				<ul class="stats">
+					<li *ngFor="let stat of pokemon?.stats" class="stats__item">
+						<span class="stats__item-title">{{ stat.stat.name }}</span>
+
+						<div class="stats__item-bar-container">
+							<div
+								class="stats__item-bar"
+								[ngStyle]="{width: (stat.base_stat / 255) * 100 + '%'}">
+							</div>
+							<span class="stats__item-bar-value">{{ stat.base_stat }}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="page-section page-section--no-top-pad" *ngIf="evolutionChain; else loadingSectionTmpl">
+	<div class="page-section__wrapper">
+		<div class="evolutions">
+			<h1 class="page-title align-center">Evolutions</h1>
+
+			<ul class="evolutions__list">
+				<ng-template #recursiveEvolutions let-evolution let-isRecursive>
+					<li class="evolutions__item" [ngClass]="{'evolutions__item--current': evolution.species.name === pokemon.name}">
+						<a [routerLink]="['/pokemon', getIDFromURL(evolution.species.url)]" class="evolutions__item-wrapper">
+							<div class="evolutions__item-image-wrapper pokemon-image-wrapper">
+								<img
+									[src]="getEvolutionImageSrc(evolution.species.url)"
+									alt=""
+									class="evolutions__item-image pokemon-image" />
+							</div>
+
+							<p class="evolutions__item-title">
+								{{ evolution.species.name }}
+								<span class="evolutions__item-sub-title" *ngIf="evolution.evolution_details?.length"> (min. level {{ evolution.evolution_details[0].min_level }})</span>
+							</p>
+						</a>
+
+						<svg class="evolutions__item-arrow" *ngIf="evolution.evolves_to?.length">
+							<use xlink:href="#ic-right"></use>
+						</svg>
+					</li>
+
+					<ng-container *ngFor="let subEvolution of evolution.evolves_to">
+						<ng-container *ngTemplateOutlet="recursiveEvolutions; context: {$implicit: subEvolution}"></ng-container>
+					</ng-container>
+				</ng-template>
+
+				<ng-container *ngTemplateOutlet="recursiveEvolutions; context: {$implicit: evolutionChain.chain}"></ng-container>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<ng-template #loadingSectionTmpl>
+	<div class="page-section">
+		<div class="page-section__wrapper loading-section">
+			<mat-progress-spinner
+				mode="indeterminate"
+				diameter="64"
+				color="primary">
+			</mat-progress-spinner>
+		</div>
+	</div>
+</ng-template>

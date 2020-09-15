@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { NamedAPIResource, NamedAPIResourceList } from 'pokeapi';
 import { toQueryString } from '../core/helpers/toQueryString';
-import { PokedexAPIService } from '../core/services/pokedex-api/pokedex-api.service';
+import { PokeAPIService } from '../core/services/pokeapi/pokeapi.service';
 
 @Component({
 	selector: 'pokemon-list',
@@ -22,7 +22,7 @@ export class PokemonListComponent implements OnInit {
 
 	public page: number = 0;
 
-	public perPage: number = 20;
+	public pageSize: number = 8;
 
 	public totalCount: number = 0;
 	//#endregion
@@ -30,7 +30,7 @@ export class PokemonListComponent implements OnInit {
 	//#region Lifecycles
 	constructor(
 		private fb: FormBuilder,
-		private pokedexAPI: PokedexAPIService) { }
+		private pokedexAPI: PokeAPIService) { }
 
 	ngOnInit(): void {
 		this.fetchData();
@@ -48,7 +48,7 @@ export class PokemonListComponent implements OnInit {
 
 	public onPageChange(evt: PageEvent): void {
 		this.page = evt.pageIndex;
-		this.perPage = evt.pageSize;
+		this.pageSize = evt.pageSize;
 		this.lauchSearch();
 	}
 
@@ -88,8 +88,7 @@ export class PokemonListComponent implements OnInit {
 				urlParams.type = this.searchForm.value.type;
 			}
 
-			const url: string = 'pokemon' + toQueryString(urlParams);
-			const { results, count } = await this.pokedexAPI.get<NamedAPIResourceList<NamedAPIResource<any>>>(url);
+			const { results, count } = await this.pokedexAPI.get<NamedAPIResourceList<NamedAPIResource<any>>>('pokemon', urlParams);
 
 			this.totalCount = count;
 			this.results = results;
@@ -104,7 +103,7 @@ export class PokemonListComponent implements OnInit {
 
 	private paginationToLimitOffset(): any {
 		return {
-			limit: this.perPage,
+			limit: this.pageSize,
 			offset: this.page * 20
 		};
 	}

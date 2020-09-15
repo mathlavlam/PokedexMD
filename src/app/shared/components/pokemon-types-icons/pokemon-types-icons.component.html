@@ -1,0 +1,13 @@
+<ul class="types">
+	<li
+		*ngFor="let type of pokemon?.types"
+		class="types__item">
+
+		<img
+			[src]="'/assets/img/types/' + type.type.name + '.svg'"
+			[alt]="type.type.name"
+			class="types__item-icon"
+			[matTooltip]="type.type.name | titlecase"
+			[matTooltipPosition]="tooltipPosition" />
+	</li>
+</ul>

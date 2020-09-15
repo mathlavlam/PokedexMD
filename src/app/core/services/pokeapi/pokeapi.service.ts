@@ -1,30 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toQueryString } from '../../helpers/toQueryString';
-import { Pokemon } from 'pokeapi';
 
 @Injectable({providedIn: 'root'})
-export class PokedexAPIService {
-
-
+export class PokeAPIService {
 	//#region Private static properties
 	private static readonly API_URL: string = 'https://pokeapi.co/api/v2';
 	//#endregion
 
 	//#region Lifecycles
-	constructor(
-		private http: HttpClient) {}
+	constructor(private http: HttpClient) {}
 	//#endregion
 
 	//#region Public methods
-	public get<T = any>(endpoint: string, params?: any): Promise<T> {
-		return this.http
-			.get(`${PokedexAPIService.API_URL}/${ endpoint + toQueryString(params) }`)
-			.toPromise() as any;
-	}
+	public get<T = any>(endpoint: string, params?: any, isFullURL: boolean = false): Promise<T> {
+		const url: string = isFullURL ? endpoint : `${ PokeAPIService.API_URL }/${ endpoint + toQueryString(params) }`;
 
-	public getPokemonData(id: number): Promise<Pokemon> {
-		return this.get(`pokemon/${ id }`);
+		return this.http.get(url).toPromise() as any;
 	}
 
 	public getIDFromURL(type: string, url: string): number {
