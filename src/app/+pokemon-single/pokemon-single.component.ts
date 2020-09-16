@@ -17,6 +17,8 @@ export class PokemonSingleComponent implements OnInit {
 	public species: PokemonSpecies;
 
 	public evolutionChain: EvolutionChain;
+
+	public backBtnQueryParams: any;
 	//#endregion
 
 	//#region Lifecycles
@@ -28,6 +30,8 @@ export class PokemonSingleComponent implements OnInit {
 		this.route.params.subscribe({
 			next: this.onRouteParamsChange.bind(this)
 		});
+
+		this.backBtnQueryParams = this.route.snapshot.queryParams;
 
 		this.onRouteParamsChange();
 	}

@@ -16,15 +16,7 @@ img	{
 }
 
 .page-section {
-	padding: 64px 16px;
-
-	&--no-top-pad {
-		padding-top: 0;
-	}
-
-	&--no-btm-pad {
-		padding-bottom: 0;
-	}
+	padding: 64px;
 
 	&__wrapper {
 		max-width: 1200px;
@@ -32,6 +24,18 @@ img	{
 	}
 
 	@media (max-width: 991px) {
-		padding: 40px 0;
+		padding: 40px 32px;
+	}
+
+	@media (max-width: 767px) {
+		padding: 40px 16px;
+	}
+
+	&--no-top-pad {
+		padding-top: 0;
+	}
+
+	&--no-btm-pad {
+		padding-bottom: 0;
 	}
 }

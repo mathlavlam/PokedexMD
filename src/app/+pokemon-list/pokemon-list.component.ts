@@ -1,6 +1,8 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NamedAPIResource, NamedAPIResourceList } from 'pokeapi';
 import { toQueryString } from '../core/helpers/toQueryString';
 import { PokeAPIService } from '../core/services/pokeapi/pokeapi.service';
@@ -22,7 +24,7 @@ export class PokemonListComponent implements OnInit {
 
 	public page: number = 0;
 
-	public pageSize: number = 8;
+	public pageSize: number = 12;
 
 	public totalCount: number = 0;
 	//#endregion
@@ -30,9 +32,16 @@ export class PokemonListComponent implements OnInit {
 	//#region Lifecycles
 	constructor(
 		private fb: FormBuilder,
-		private pokedexAPI: PokeAPIService) { }
+		private router: Router,
+		private route: ActivatedRoute,
+		private pokedexAPI: PokeAPIService,
+		private scroll: ViewportScroller) { }
 
 	ngOnInit(): void {
+		if (this.route.snapshot.queryParams.page) {
+			this.page = this.route.snapshot.queryParams.page;
+		}
+
 		this.fetchData();
 		this.buildForm();
 	}
@@ -92,6 +101,15 @@ export class PokemonListComponent implements OnInit {
 
 			this.totalCount = count;
 			this.results = results;
+
+			this.router.navigate([], {
+				relativeTo: this.route,
+				queryParams: {
+					page: this.page
+				}
+			});
+
+			this.scroll.scrollToPosition([0, 0]);
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -104,7 +122,7 @@ export class PokemonListComponent implements OnInit {
 	private paginationToLimitOffset(): any {
 		return {
 			limit: this.pageSize,
-			offset: this.page * 20
+			offset: this.page * this.pageSize
 		};
 	}
 	//#endregion

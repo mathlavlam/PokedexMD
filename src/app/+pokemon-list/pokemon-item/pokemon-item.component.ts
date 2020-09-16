@@ -19,6 +19,9 @@ export class PokemonItemComponent implements OnInit {
 	//#region Inputs
 	@Input('pokemon')
 	public pokemonPreview: NamedAPIResource<any>;
+
+	@Input()
+	public linkParams: any;
 	//#endregion
 
 	//#region Lifecycles

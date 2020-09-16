@@ -1,9 +1,10 @@
 <a
 	[routerLink]="['/pokemon', pokemonID]"
+	[queryParams]="linkParams"
 	class="wrapper">
 	<img
 		*ngIf="pokemonData && !isLoading"
-		[src]="pokemonData.sprites.other?.dream_world?.front_default || pokemonData.sprites.front_default"
+		[src]="pokemonData.sprites.other?.dream_world?.front_default || pokemonData.sprites.front_default || '/assets/img/pokeball.png'"
 		alt=""
 		class="sprite" />
 

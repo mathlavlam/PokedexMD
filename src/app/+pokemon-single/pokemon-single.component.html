@@ -1,6 +1,6 @@
-<div class="page-section" *ngIf="!isLoading; else loadingSectionTmpl">
+<div class="page-section description" *ngIf="!isLoading; else loadingSectionTmpl">
 	<div class="page-section__wrapper">
-		<a [routerLink]="['/pokemons']" class="back-button">
+		<a [routerLink]="['/pokemons']" [queryParams]="this.backBtnQueryParams" class="back-button">
 			<svg class="back-button__icon">
 				<use xlink:href="#ic-left"></use>
 			</svg>
@@ -8,16 +8,16 @@
 		</a>
 
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-4 description__col description__col--img">
 				<div class="pokemon-image-wrapper">
 					<img
-						[src]="pokemon?.sprites.other?.dream_world?.front_default || pokemon?.sprites.front_default"
+						[src]="pokemon?.sprites.other?.dream_world?.front_default || pokemon?.sprites.front_default || '/assets/img/pokeball.png'"
 						alt=""
 						class="pokemon-image" />
 				</div>
 			</div>
 
-			<div class="description-container col-md-8">
+			<div class="description__col description__col--specs col-md-8">
 				<div class="title-container">
 					<h1 class="title">#{{ pokemon?.id }} - {{ pokemon?.name }}</h1>
 
